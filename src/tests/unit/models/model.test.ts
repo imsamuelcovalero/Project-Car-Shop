@@ -8,7 +8,7 @@ import {
   carMockForChange,
   carMockForChangeWithId,
 } from '../../mocks/carsMock';
-// import { ErrorTypes } from '../../../errors/catalog';
+import { ErrorTypes } from '../../../errors/catalog';
 
 describe('Cars Model', () => {
   const carsModel = new CarsModel();
@@ -40,7 +40,7 @@ describe('Cars Model', () => {
       try {
         await carsModel.readOne('123ERRADO');
       } catch (error: any) {
-        expect(error.message).to.be.eq('invalid mongo id');
+        expect(error.message).to.be.eq(ErrorTypes.InvalidMongoId);
       }
     });
   });
@@ -55,7 +55,7 @@ describe('Cars Model', () => {
       try {
         await carsModel.update('123ERRADO', carMockForChange);
       } catch (error: any) {
-        expect(error.message).to.be.eq('invalid mongo id');
+        expect(error.message).to.be.eq(ErrorTypes.InvalidMongoId);
       }
     });
   });

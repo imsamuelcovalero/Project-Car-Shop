@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { ZodError } from 'zod';
-// import { ErrorTypes } from '../../../errors/catalog';
+import { ErrorTypes } from '../../../errors/catalog';
 import CarModel from '../../../models/Car';
 import CarService from '../../../services/cars.service';
 import { carMock, carMockWithId } from '../../mocks/carsMock';
@@ -43,7 +43,7 @@ describe('Car Service', () => {
 
   describe('ReadOne Car', () => {
     it('Success', async () => {
-      const carCreated = await carService.readOne('abobrinha');
+      const carCreated = await carService.readOne('6353147ba8913e3bbf02f2eb');
 
       expect(carCreated).to.be.deep.equal(carMockWithId);
     });
@@ -58,7 +58,7 @@ describe('Car Service', () => {
         error = err;
       }
 
-      expect(error?.message).to.be.deep.equal('car not found');
+      expect(error?.message).to.be.deep.equal(ErrorTypes.EntityNotFound);
     });
   });
 
@@ -95,7 +95,7 @@ describe('Car Service', () => {
         error = err;
       }
 
-      expect(error?.message).to.be.eq('car not found')
+      expect(error?.message).to.be.eq(ErrorTypes.EntityNotFound)
     })
   })
 

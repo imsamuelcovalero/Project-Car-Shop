@@ -1,10 +1,8 @@
 import { IService } from '../interfaces/IService';
 import { ICar, CarZodSchema } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
-// import { ErrorTypes } from '../errors/catalog';
-import CustomError from '../errors/CustomError';
-
-const NOT_FOUNT = 'car not found';
+import { ErrorTypes } from '../errors/catalog';
+// import CustomError from '../errors/CustomError';
 
 class CarsService implements IService<ICar> {
   private _car: IModel<ICar>;
@@ -22,8 +20,11 @@ class CarsService implements IService<ICar> {
   }
 
   public async readOne(_id: string): Promise<ICar> {
+    // É disparado o erro 400 Id must have 24 hexadecimal characters caso o id possua menos que 24 caracteres;
+    if (_id.length !== 24) throw Error(ErrorTypes.InvalidMongoId);
+
     const car = await this._car.readOne(_id);
-    if (!car) throw new CustomError(404, NOT_FOUNT);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
 
     return car as ICar;
   }
@@ -38,7 +39,7 @@ class CarsService implements IService<ICar> {
     const updated = await this._car.update(_id, parsed.data);
 
     if (!updated) {
-      throw new CustomError(404, NOT_FOUNT);
+      throw Error(ErrorTypes.EntityNotFound);
     }
 
     return updated as ICar;
@@ -50,7 +51,7 @@ class CarsService implements IService<ICar> {
 
   public async delete(_id: string): Promise<ICar> {
     const car = await this._car.delete(_id);
-    if (!car) throw new CustomError(404, NOT_FOUNT);
+    if (!car) throw Error(ErrorTypes.EntityNotFound);
 
     return car as ICar;
   }
