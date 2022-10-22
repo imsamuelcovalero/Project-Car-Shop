@@ -9,11 +9,13 @@ const motorcycle = new MotorcycleModel();
 const motorcycleService = new MotorcyclesService(motorcycle);
 const motorcycleController = new MotorcyclesController(motorcycleService);
 
+const PATCH_ID = '/motorcycles/:id';
+
 // route.post('/cars', validators.validateCar, carController.create);
-route.post('/cars', (req, res) => motorcycleController.create(req, res));
-route.get('/cars', (req, res) => motorcycleController.read(req, res));
-route.get('/cars/:id', (req, res) => motorcycleController.readOne(req, res));
-route.put('/cars/:id', (req, res) => motorcycleController.update(req, res));
-route.delete('/cars/:id', (req, res) => motorcycleController.delete(req, res));
+route.post('/motorcycles', (req, res) => motorcycleController.create(req, res));
+route.get('/motorcycles', (req, res) => motorcycleController.read(req, res));
+route.get(PATCH_ID, (req, res) => motorcycleController.readOne(req, res));
+route.put(PATCH_ID, (req, res) => motorcycleController.update(req, res));
+route.delete(PATCH_ID, (req, res) => motorcycleController.delete(req, res));
 
 export default route;

@@ -1,35 +1,35 @@
 import { IService } from '../interfaces/IService';
-import { ICar, CarZodSchema } from '../interfaces/ICar';
+import { IMotorcycle, IMotorcycleZodSchema } from '../interfaces/IMotorcycle';
 import { IModel } from '../interfaces/IModel';
 import { ErrorTypes } from '../errors/catalog';
 // import CustomError from '../errors/CustomError';
 
-class CarsService implements IService<ICar> {
-  private _car: IModel<ICar>;
+class CarsService implements IService<IMotorcycle> {
+  private _car: IModel<IMotorcycle>;
 
-  constructor(model: IModel<ICar>) {
+  constructor(model: IModel<IMotorcycle>) {
     this._car = model;
   }
 
-  public async create(obj: unknown): Promise<ICar> {
-    const parsed = CarZodSchema.safeParse(obj);
+  public async create(obj: unknown): Promise<IMotorcycle> {
+    const parsed = IMotorcycleZodSchema.safeParse(obj);
     if (!parsed.success) {
       throw parsed.error;
     }
     return this._car.create(parsed.data);
   }
 
-  public async readOne(_id: string): Promise<ICar> {
+  public async readOne(_id: string): Promise<IMotorcycle> {
     if (_id.length !== 24) throw Error(ErrorTypes.InvalidMongoId);
 
     const car = await this._car.readOne(_id);
     if (!car) throw Error(ErrorTypes.EntityNotFound);
 
-    return car as ICar;
+    return car as IMotorcycle;
   }
 
-  public async update(_id: string, obj: unknown): Promise<ICar> {
-    const parsed = CarZodSchema.safeParse(obj);
+  public async update(_id: string, obj: unknown): Promise<IMotorcycle> {
+    const parsed = IMotorcycleZodSchema.safeParse(obj);
 
     if (!parsed.success) {
       throw parsed.error;
@@ -41,18 +41,18 @@ class CarsService implements IService<ICar> {
       throw Error(ErrorTypes.EntityNotFound);
     }
 
-    return updated as ICar;
+    return updated as IMotorcycle;
   }
 
-  public async read(): Promise<ICar[]> {
+  public async read(): Promise<IMotorcycle[]> {
     return this._car.read();
   }
 
-  public async delete(_id: string): Promise<ICar> {
+  public async delete(_id: string): Promise<IMotorcycle> {
     const car = await this._car.delete(_id);
     if (!car) throw Error(ErrorTypes.EntityNotFound);
 
-    return car as ICar;
+    return car as IMotorcycle;
   }
 }
 
