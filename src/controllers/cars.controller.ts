@@ -10,13 +10,12 @@ export default class CarsController {
     req: Request,
     res: Response<ICar>,
   ) {
-    console.log('req', req.body);
+    // console.log('req', req.body);
 
     if (!req.body) {
       throw new CustomError(400, 'Request body is empty');
     }
     const created = await this._service.create(req.body);
-    console.log('created', created);
 
     return res.status(201).json(created);
   }

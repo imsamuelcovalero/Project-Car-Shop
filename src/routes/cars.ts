@@ -2,7 +2,6 @@ import { Router } from 'express';
 import CarsController from '../controllers/cars.controller';
 import CarsModel from '../models/Car';
 import CarsService from '../services/cars.service';
-// import validators from '../middlewares/validators';
 
 const route = Router();
 

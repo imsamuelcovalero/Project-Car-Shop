@@ -16,7 +16,6 @@ const VehicleZodSchema = z.object({
     invalid_type_error: INVALID,
   }).min(3, { message: 'Color must be 3 or more characters long' }),
   status: z.boolean().optional(),
-  // status: z.enum(['available', 'unavailable']),
   buyValue: z.number({
     required_error: 'Buy Value must be informed',
     invalid_type_error: INVALID,

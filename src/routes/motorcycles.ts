@@ -11,7 +11,6 @@ const motorcycleController = new MotorcyclesController(motorcycleService);
 
 const PATCH_ID = '/motorcycles/:id';
 
-// route.post('/cars', validators.validateCar, carController.create);
 route.post('/motorcycles', (req, res) => motorcycleController.create(req, res));
 route.get('/motorcycles', (req, res) => motorcycleController.read(req, res));
 route.get(PATCH_ID, (req, res) => motorcycleController.readOne(req, res));
